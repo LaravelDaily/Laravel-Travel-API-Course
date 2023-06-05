@@ -6,8 +6,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
-use App\Models\Travel;
-use App\Observers\TravelObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,7 +25,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Travel::observe(TravelObserver::class);
+        //
     }
 
     /**
