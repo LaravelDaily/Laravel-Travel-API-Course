@@ -1,0 +1,12 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+ 
+parameters:
+    paths:
+        - app/
+ 
+    # Level 9 is the highest level
+    level: 5
+
+    ignoreErrors:
+        - '#Access to an undefined property App\\Http\\Resources\\[a-zA-Z0-9::a-zA-Z]#'
