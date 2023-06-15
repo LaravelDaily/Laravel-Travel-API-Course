@@ -1,0 +1,791 @@
+openapi: 3.0.3
+info:
+  title: 'Travel API Documentation'
+  description: 'Example project for Travel Agency API'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://travelapi.test'
+paths:
+  /api/v1/admin/travels:
+    post:
+      summary: 'POST Travel'
+      operationId: pOSTTravel
+      description: 'Creates a new Travel record.'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 996a36ca-2693-4901-9c55-7136e68d81d5
+                    name: 'My new travel 234'
+                    slug: my-new-travel-234
+                    description: 'The second best journey ever!'
+                    number_of_days: '4'
+                    number_of_nights: 3
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 996a36ca-2693-4901-9c55-7136e68d81d5
+                      name:
+                        type: string
+                        example: 'My new travel 234'
+                      slug:
+                        type: string
+                        example: my-new-travel-234
+                      description:
+                        type: string
+                        example: 'The second best journey ever!'
+                      number_of_days:
+                        type: string
+                        example: '4'
+                      number_of_nights:
+                        type: integer
+                        example: 3
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The name has already been taken.'
+                  errors:
+                    name:
+                      - 'The name has already been taken.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The name has already been taken.'
+                  errors:
+                    type: object
+                    properties:
+                      name:
+                        type: array
+                        example:
+                          - 'The name has already been taken.'
+                        items:
+                          type: string
+      tags:
+        - 'Admin endpoints'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                is_public:
+                  type: boolean
+                  description: ''
+                  example: false
+                name:
+                  type: string
+                  description: ''
+                  example: rerum
+                description:
+                  type: string
+                  description: ''
+                  example: autem
+                number_of_days:
+                  type: integer
+                  description: ''
+                  example: 1
+              required:
+                - name
+                - description
+                - number_of_days
+  '/api/v1/admin/travels/{travel_id}/tours':
+    post:
+      summary: 'POST Tour'
+      operationId: pOSTTour
+      description: 'Creates a new Tour record.'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 996a381e-64ca-46ba-8b51-f8279d5529ad
+                    name: 'Tour 1'
+                    starting_date: '2023-06-15'
+                    ending_date: '2023-06-20'
+                    price: '99.99'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 996a381e-64ca-46ba-8b51-f8279d5529ad
+                      name:
+                        type: string
+                        example: 'Tour 1'
+                      starting_date:
+                        type: string
+                        example: '2023-06-15'
+                      ending_date:
+                        type: string
+                        example: '2023-06-20'
+                      price:
+                        type: string
+                        example: '99.99'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The name has already been taken.'
+                  errors:
+                    name:
+                      - 'The name has already been taken.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The name has already been taken.'
+                  errors:
+                    type: object
+                    properties:
+                      name:
+                        type: array
+                        example:
+                          - 'The name has already been taken.'
+                        items:
+                          type: string
+      tags:
+        - 'Admin endpoints'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: dolores
+                starting_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2023-06-15T08:01:10'
+                ending_date:
+                  type: string
+                  description: 'Must be a valid date. Must be a date after <code>starting_date</code>.'
+                  example: '2071-08-28'
+                price:
+                  type: number
+                  description: ''
+                  example: 475.0
+              required:
+                - name
+                - starting_date
+                - ending_date
+                - price
+    parameters:
+      -
+        in: path
+        name: travel_id
+        description: 'The ID of the travel.'
+        example: 9958e389-5edf-48eb-8ecd-e058985cf3ce
+        required: true
+        schema:
+          type: string
+  '/api/v1/admin/travels/{travel_id}':
+    put:
+      summary: 'PUT Travel'
+      operationId: pUTTravel
+      description: 'Updates new Travel record.'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 996a36ca-2693-4901-9c55-7136e68d81d5
+                    name: 'My new travel 234'
+                    slug: my-new-travel-234
+                    description: 'The second best journey ever!'
+                    number_of_days: '4'
+                    number_of_nights: 3
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 996a36ca-2693-4901-9c55-7136e68d81d5
+                      name:
+                        type: string
+                        example: 'My new travel 234'
+                      slug:
+                        type: string
+                        example: my-new-travel-234
+                      description:
+                        type: string
+                        example: 'The second best journey ever!'
+                      number_of_days:
+                        type: string
+                        example: '4'
+                      number_of_nights:
+                        type: integer
+                        example: 3
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The name has already been taken.'
+                  errors:
+                    name:
+                      - 'The name has already been taken.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The name has already been taken.'
+                  errors:
+                    type: object
+                    properties:
+                      name:
+                        type: array
+                        example:
+                          - 'The name has already been taken.'
+                        items:
+                          type: string
+      tags:
+        - 'Admin endpoints'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                is_public:
+                  type: boolean
+                  description: ''
+                  example: false
+                name:
+                  type: string
+                  description: ''
+                  example: iure
+                description:
+                  type: string
+                  description: ''
+                  example: quaerat
+                number_of_days:
+                  type: integer
+                  description: ''
+                  example: 16
+              required:
+                - name
+                - description
+                - number_of_days
+    parameters:
+      -
+        in: path
+        name: travel_id
+        description: 'The ID of the travel.'
+        example: 9958e389-5edf-48eb-8ecd-e058985cf3ce
+        required: true
+        schema:
+          type: string
+  /api/v1/login:
+    post:
+      summary: 'POST Login'
+      operationId: pOSTLogin
+      description: 'Login with the existing user.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  access_token: 1|a9ZcYzIrLURVGx6Xe41HKj1CrNsxRxe4pLA2oISo
+                properties:
+                  access_token:
+                    type: string
+                    example: 1|a9ZcYzIrLURVGx6Xe41HKj1CrNsxRxe4pLA2oISo
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error: 'The provided credentials are incorrect.'
+                properties:
+                  error:
+                    type: string
+                    example: 'The provided credentials are incorrect.'
+      tags:
+        - 'Auth endpoints'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: damien.wilderman@example.com
+                password:
+                  type: string
+                  description: ''
+                  example: iste
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/travels:
+    get:
+      summary: 'GET Travels'
+      operationId: gETTravels
+      description: 'Returns paginated list of travels.'
+      parameters:
+        -
+          in: query
+          name: page
+          description: 'Page number.'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Page number.'
+            example: 1
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 9958e389-5edf-48eb-8ecd-e058985cf3ce
+                      name: 'First travel'
+                      slug: first-travel
+                      description: 'Great offer!'
+                      number_of_days: 5
+                      number_of_nights: 4
+                    -
+                      id: 99643482-4ea8-435e-b7da-e18cbde3d3c7
+                      name: 'New travel'
+                      slug: new-travel
+                      description: 'The best journey ever!'
+                      number_of_days: 3
+                      number_of_nights: 2
+                  links:
+                    first: 'http://travel-api.test/api/v1/travels?page=1'
+                    last: 'http://travel-api.test/api/v1/travels?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        active: false
+                      -
+                        url: 'http://travel-api.test/api/v1/travels?page=1'
+                        label: '1'
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        active: false
+                    path: 'http://travel-api.test/api/v1/travels'
+                    per_page: 15
+                    to: 6
+                    total: 6
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 9958e389-5edf-48eb-8ecd-e058985cf3ce
+                        name: 'First travel'
+                        slug: first-travel
+                        description: 'Great offer!'
+                        number_of_days: 5
+                        number_of_nights: 4
+                      -
+                        id: 99643482-4ea8-435e-b7da-e18cbde3d3c7
+                        name: 'New travel'
+                        slug: new-travel
+                        description: 'The best journey ever!'
+                        number_of_days: 3
+                        number_of_nights: 2
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 9958e389-5edf-48eb-8ecd-e058985cf3ce
+                        name:
+                          type: string
+                          example: 'First travel'
+                        slug:
+                          type: string
+                          example: first-travel
+                        description:
+                          type: string
+                          example: 'Great offer!'
+                        number_of_days:
+                          type: integer
+                          example: 5
+                        number_of_nights:
+                          type: integer
+                          example: 4
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://travel-api.test/api/v1/travels?page=1'
+                      last:
+                        type: string
+                        example: 'http://travel-api.test/api/v1/travels?page=1'
+                      prev:
+                        type: string
+                        example: null
+                      next:
+                        type: string
+                        example: null
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: '&laquo; Previous'
+                            active: false
+                          -
+                            url: 'http://travel-api.test/api/v1/travels?page=1'
+                            label: '1'
+                            active: true
+                          -
+                            url: null
+                            label: 'Next &raquo;'
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                            label:
+                              type: string
+                              example: '&laquo; Previous'
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: 'http://travel-api.test/api/v1/travels'
+                      per_page:
+                        type: integer
+                        example: 15
+                      to:
+                        type: integer
+                        example: 6
+                      total:
+                        type: integer
+                        example: 6
+      tags:
+        - 'Public endpoints'
+      security: []
+  '/api/v1/travels/{travel_slug}/tours':
+    get:
+      summary: 'GET Travel Tours'
+      operationId: gETTravelTours
+      description: 'Returns paginated list of tours by travel slug.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 9958e389-5edf-48eb-8ecd-e058985cf3ce
+                      name: 'Tour on Sunday'
+                      starting_date: '2023-06-11'
+                      ending_date: '2023-06-16'
+                      price: '99.99'
+                    -
+                      id: 9958e389-5edf-48eb-8ecd-e058985cf3c2
+                      name: 'Tour on Tuesday'
+                      starting_date: '2023-06-14'
+                      ending_date: '2023-06-19'
+                      price: '119.99'
+                    -
+                      id: 9958e389-5edf-48eb-8ecd-e058985cf3c1
+                      name: 'Tour on Monday'
+                      starting_date: '2023-06-18'
+                      ending_date: '2023-06-23'
+                      price: '79.99'
+                  links:
+                    first: 'http://travel-api.test/api/v1/travels/first-travel/tours?page=1'
+                    last: 'http://travel-api.test/api/v1/travels/first-travel/tours?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        active: false
+                      -
+                        url: 'http://travel-api.test/api/v1/travels/first-travel/tours?page=1'
+                        label: '1'
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        active: false
+                    path: 'http://travel-api.test/api/v1/travels/first-travel/tours'
+                    per_page: 15
+                    to: 3
+                    total: 3
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 9958e389-5edf-48eb-8ecd-e058985cf3ce
+                        name: 'Tour on Sunday'
+                        starting_date: '2023-06-11'
+                        ending_date: '2023-06-16'
+                        price: '99.99'
+                      -
+                        id: 9958e389-5edf-48eb-8ecd-e058985cf3c2
+                        name: 'Tour on Tuesday'
+                        starting_date: '2023-06-14'
+                        ending_date: '2023-06-19'
+                        price: '119.99'
+                      -
+                        id: 9958e389-5edf-48eb-8ecd-e058985cf3c1
+                        name: 'Tour on Monday'
+                        starting_date: '2023-06-18'
+                        ending_date: '2023-06-23'
+                        price: '79.99'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 9958e389-5edf-48eb-8ecd-e058985cf3ce
+                        name:
+                          type: string
+                          example: 'Tour on Sunday'
+                        starting_date:
+                          type: string
+                          example: '2023-06-11'
+                        ending_date:
+                          type: string
+                          example: '2023-06-16'
+                        price:
+                          type: string
+                          example: '99.99'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: 'http://travel-api.test/api/v1/travels/first-travel/tours?page=1'
+                      last:
+                        type: string
+                        example: 'http://travel-api.test/api/v1/travels/first-travel/tours?page=1'
+                      prev:
+                        type: string
+                        example: null
+                      next:
+                        type: string
+                        example: null
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: '&laquo; Previous'
+                            active: false
+                          -
+                            url: 'http://travel-api.test/api/v1/travels/first-travel/tours?page=1'
+                            label: '1'
+                            active: true
+                          -
+                            url: null
+                            label: 'Next &raquo;'
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                            label:
+                              type: string
+                              example: '&laquo; Previous'
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: 'http://travel-api.test/api/v1/travels/first-travel/tours'
+                      per_page:
+                        type: integer
+                        example: 15
+                      to:
+                        type: integer
+                        example: 3
+                      total:
+                        type: integer
+                        example: 3
+      tags:
+        - 'Public endpoints'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                priceFrom:
+                  type: number.
+                  description: ''
+                  example: '"123.45"'
+                priceTo:
+                  type: number.
+                  description: ''
+                  example: '"234.56"'
+                dateFrom:
+                  type: date.
+                  description: ''
+                  example: '"2023-06-01"'
+                dateTo:
+                  type: date.
+                  description: ''
+                  example: '"2023-07-01"'
+                sortBy:
+                  type: string.
+                  description: ''
+                  example: '"price"'
+                sortOrder:
+                  type: string.
+                  description: ''
+                  example: '"asc" or "desc"'
+      security: []
+    parameters:
+      -
+        in: path
+        name: travel_slug
+        description: 'Optional parameter. Travel slug.'
+        required: true
+        schema:
+          type: string
+        examples:
+          omitted:
+            summary: 'When the value is omitted'
+            value: ''
+          present:
+            summary: 'When the value is present'
+            value: '"first-travel"'
+tags:
+  -
+    name: 'Admin endpoints'
+    description: ''
+  -
+    name: 'Auth endpoints'
+    description: ''
+  -
+    name: 'Public endpoints'
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: ''
+security:
+  -
+    default: []
